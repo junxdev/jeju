@@ -33,7 +33,7 @@
 			<tr>
 				<th><label for="ntitle">제목</label></th>
 				<td><input type="text" name="ntitle" id="ntitle" /></td>
-			</tr>	
+			</tr>
 			<tr>
 				<th><label for="ntype">종류</label></th>
 				<td>

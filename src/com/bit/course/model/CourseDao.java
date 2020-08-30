@@ -193,7 +193,7 @@ public class CourseDao {
 				+ "left join mbr on std.id = mbr.id "
 				+ "left join crs on std.cno = crs.cno "
 				+ "left join empl on crs.profno = empl.eno "
-				+ "where cno = ? and salesno = ?";
+				+ "where crs.cno = ? and crs.salesno = ?";
 		StdDto std = null;
 		CourseDto crs = null;
 		ArrayList<Object> list = new ArrayList<Object>();
@@ -238,14 +238,14 @@ public class CourseDao {
 	}
 	
 	public int assignStudent(String[] array) {
-		String sql = "UPDATE mbr SET lvl = 'L03' WHERE ";
+		String sql = "UPDATE mbr SET lvl = 'L03' WHERE id IN (";
 		for(int i = 0; i < array.length; i++) {
-			if(i == array.length - 1) {
-				sql += "id = ?"; 
-				break;
+			if(i > 0) {
+				sql += ", "; 
 			}
-			sql += "id = ? OR ";
+			sql += "?";
 		}
+		sql += ")";
 		System.out.println("assignStudent : " + sql);
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -268,14 +268,14 @@ public class CourseDao {
 	}
 	
 	public int cancelStudent(String[] array) {
-		String sql = "UPDATE mbr SET lvl = 'L02' WHERE ";
+		String sql = "UPDATE mbr SET lvl = 'L02' WHERE id IN (";
 		for(int i = 0; i < array.length; i++) {
-			if(i == array.length - 1){
-				sql += "id = ?"; 
-				break;
+			if(i > 0) {
+				sql += ", "; 
 			}
-			sql += "id = ? OR ";
+			sql += "?";
 		}
+		sql += ")";
 		System.out.println("cancelStudent : " + sql);
 		try {
 			pstmt = conn.prepareStatement(sql);

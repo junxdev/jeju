@@ -9,26 +9,44 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>BitCamp Jeju</title>
 <%@ include file="template/head.jspf" %>
-<style type="text/css">
-</style>
 <script type="text/javascript">
+	$(document).ready(function() {
+		document.querySelectorAll('tr').forEach(function(e, i) {
+		    if(i == 0) return false;
+		    e.addEventListener('click', function() {
+		        location.href = '/jeju/lms/courses/assign.bit?cno=' + e.firstElementChild.innerText;
+			});
+		});
+	});
 </script>
 </head>
-
 <body>
 <%@ include file="template/header.jspf" %>
 <%@ include file="template/menu.jspf" %>
-<h2>수강신청현황</h2>
-	<% 
-	ArrayList<SalesCourseDto> list = (ArrayList<SalesCourseDto>) request.getAttribute("list"); 
-	for(SalesCourseDto bean : list) {
-	%>
-	<div>
-		<a href="/jeju/lms/courses/assign.bit?cno=<%= bean.getCno() %>"><%= bean.getCno() %>, <%= bean.getCtitle() %>, <%= bean.getCbegin() %>, <%= bean.getClimit() %>, <%= bean.getStdcnt() %></a>
-	</div>
-	<%
-	}
-	%>
+<h2>수강신청 관리</h2>
+<table>
+	<tr>
+		<th>강좌번호</th>
+		<th>강좌명</th>
+		<th>개강일</th>
+		<th>정원</th>
+		<th>신청인원</th>
+	</tr>
+<% 
+ArrayList<SalesCourseDto> list = (ArrayList<SalesCourseDto>) request.getAttribute("list"); 
+for(SalesCourseDto bean : list) {
+%>
+	<tr>
+		<td><%= bean.getCno() %></td>
+		<td><a href="/jeju/lms/courses/assign.bit?cno=<%= bean.getCno() %>"><%= bean.getCtitle() %></a></td>
+		<td><%= bean.getCbegin() %></td>
+		<td><%= bean.getClimit() %></td>
+		<td><%= bean.getStdcnt() %></td>
+	</tr>
+<%
+}
+%>
+</table>
 <%@ include file="template/footer.jspf" %>
 </body>
 </html>
