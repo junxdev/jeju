@@ -7,6 +7,23 @@
 <title>BitCamp Jeju</title>
 <%@ include file="template/head.jspf" %>
 <style type="text/css">
+#content form table input{
+	border: none;
+	font-size: 16px;
+	height: 40px;
+	width: 100%;
+	line-height: 40px;
+	font-family: arial;
+	background-color: #ffffff00;
+	color: #81d8d0;
+}
+#content table td{
+	padding-left: 50px;
+	text-align: left;
+}
+.linkclick{
+	height: 40px;
+}
 </style>
 </head>
 <body>
@@ -21,7 +38,12 @@
 				</tr>
 				<tr>
 					<th> <label for="croom">강의실</label> </th>
-					<td> <input type="text"name="croom" id="croom" /> </td>
+					<td> <select name = "croom" id= "croom">
+							<option value = "401">401</option>
+							<option value = "402">402</option>
+							<option value = "403">403</option>						
+						</select>
+					</td>	
 				</tr>
 				<tr>
 					<th> <label for="cbegin">개강일</label> </th>
@@ -33,17 +55,26 @@
 				</tr>
 				<tr>
 					<th> <label for="profno">강사</label> </th>
-					<td> <input type="text" name="profno" id="profno" /> </td>
+					<td> <select name = "profno" id= "profno">
+							<option value = "1008">설민석</option>
+							<option value = "1009">정승제</option>
+							<option value = "1010">황현필</option>						
+						</select>
+					</td>	
 				</tr>
 				<tr>
 					<th> <label for="salesno">영업사원</label> </th>
-					<td> <input type="text" name="salesno" id="salesno" /> </td>
+					<td>  <select name = "salesno" id= "salesno">
+							<option value = "1001">영업일</option>
+							<option value = "1002">영업이</option>
+						</select>
+					</td>	
 				</tr>
 			</table>
 			<div>
-				<input type="submit" value="입력완료"/> 
-				<input type="reset" value="취소" />
-				<input type="button" value="뒤로가기" onclick="history.back();" />
+				<input class="linkclick" type="submit" value="입력완료"/> 
+				<input class="linkclick" type="reset" value="취소" />
+				<input class="linkclick" type="button" value="뒤로가기" onclick="history.back();" />
 			</div>
 	</form>
 <%@ include file="template/footer.jspf" %>

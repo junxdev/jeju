@@ -51,7 +51,7 @@ public class CoursesDao {
 		int endNum = page*10;
 		String sql = "select * from "
 				+ "( select * from "
-				+ "( select rownum row_num, crs.* from crs order by row_num desc) where row_num > = ?"
+				+ "( select rownum as row_num, crs.* from crs order by cno desc) where row_num > = ?"
 				+ ")where row_num <= ?";
 		List<CoursesDto> list = new ArrayList<CoursesDto>();
 		try {
