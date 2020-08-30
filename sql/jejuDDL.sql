@@ -27,10 +27,11 @@ create table crs(
 	salesno number constraint crs_salesno_fk references empl(eno)
 );
 create sequence crs_seq;
+drop table ntc;
 create table ntc(
 	nno number constraint ntc_nno_pk primary key,
 	ntitle varchar2(300),
-	ntype varchar2(30) check (ntype in ('ì„¼í„°ê³µì§€','ê³¼ì •ê³µì§€','ê¸°íƒ€ê³µì§€')),
+	ntype varchar2(30) check (ntype in ('¼¾ÅÍ°øÁö','°úÁ¤°øÁö','±âÅ¸°øÁö')),
 	nbody varchar2(2000),
 	ndate date default sysdate,
 	ndateby date default sysdate+365,

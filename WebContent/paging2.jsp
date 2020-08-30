@@ -17,9 +17,9 @@
 <body>
 <div id="paging">
 <!-- 1~10까지 있는 페이지의 페이징 -->
-<c:url var="action" value="courses.bit"/>
-<c:url var="action" value="jeju/lms/ntc.bit"/>
-<c:url var="action" value="notice.bit"/>
+
+<c:url var="action" value="ntc.bit"/>
+
 <c:if test="${param.prev}">
     <a href="${action}?page=${param.beginPage-1}">prev</a>
 </c:if>

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bit.course.model.PagingDto;
 import com.bit.lms_notice.model.NtcDao;
 import com.bit.lms_notice.model.NtcDto;
 
@@ -21,15 +22,35 @@ public class NtcController extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			
+			
+			try {
+			NtcDao dao = new NtcDao();
+			
+			int page = 1;
 		
-		try {
-			NtcDao dao=new NtcDao();
-			ArrayList<NtcDto> list = dao.selectAll();
-//			나중에서 목록에서 클릭해서 넘기는 값 받아서 넣어야 함
+			if(request.getParameter("page")!=null) {
+				page = Integer.parseInt(request.getParameter("page"));
+			}
+			PagingDto paging = new PagingDto();
+			paging.setPage(page);
+			
+			int count = dao.getAllCount();
+			paging.setTotalCount(count);
+			
+		
+			NtcDao dao2 = new NtcDao();
+			ArrayList<NtcDto> list = dao2.getList(page);
+			
+			NtcDao dao3 = new NtcDao();
+			dao3.selectAll();
 			request.setAttribute("list",list);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+			request.setAttribute("paging", paging);
+		
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		
 		request.getRequestDispatcher("/ntc.jsp").forward(request, response);
 	}

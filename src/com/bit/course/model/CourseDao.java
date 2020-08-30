@@ -97,7 +97,7 @@ public class CourseDao {
 
 	public ArrayList<CourseDto> selectAll() throws SQLException {
 		ArrayList<CourseDto> list=new ArrayList<CourseDto>();
-		String sql="select * from crs where cbegin > '2020-08-01' ORDER BY cno DESC";
+		String sql="select * from crs where cbegin > sysdate ORDER BY cno DESC";
 		System.out.println("selectAll()1");
 		try{
 			pstmt=conn.prepareStatement(sql);

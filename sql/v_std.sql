@@ -1,6 +1,6 @@
 create or replace view v_std as
 select std.cno,ctitle,empl.name as prof,cbegin,cend,cdays,
-std.sno,mbr.name,lvl.lvl,lname,ldesc,gr1,gr2,gr3,
+std.sno,mbr.name,lvl,lname,ldesc,gr1,gr2,gr3,
 cnt,cnt-absent-floor((late+leftearly)/3) as att_total, 
 round((cnt-absent-floor((late+leftearly)/3))/cnt*100) as att_rate,late,leftearly,absent 
 from std
@@ -15,4 +15,8 @@ left join (select max(sno) as sno, count(sno) as absent from att where ckin=0 or
 order by crs.cno, std.sno;
 
 select * from v_std;
+<<<<<<< HEAD:sql/v_std.sql
 select * from v_std where cno=4;
+=======
+
+>>>>>>> course3:WebContent/sql/v_std.sql

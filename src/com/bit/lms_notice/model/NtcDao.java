@@ -7,14 +7,17 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
-
+import com.bit.course.model.CoursesDto;
 import com.bit.lms_notice.model.NtcDto;
 
 public class NtcDao {
 	
 	Connection conn;
+	Statement stmt;
 	PreparedStatement pstmt;
 	ResultSet rs;
 	
@@ -31,7 +34,65 @@ public class NtcDao {
 		conn=DriverManager.getConnection(url, user, password);
 	}
 	
-	public ArrayList<NtcDto> selectAll() throws SQLException{	// ∏µŒ √‚∑¬
+	public int getAllCount() {
+		String sql = "select count(*) as count from ntc";
+		int count = 0;
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			if (rs.next()) {
+				count = rs.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (conn != null)conn.close();
+				if (stmt != null)stmt.close();
+				if (rs != null)rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return count;
+	}	
+	
+	public ArrayList<NtcDto> getList(int page) {
+		int startNum = (page-1)*10+1;
+		int endNum = page*10;
+		String sql = "select * from "
+				+ "( select * from "
+				+ "( select rownum row_num, ntc.* from ntc order by nno desc) where row_num > = ?"
+				+ ")where row_num <= ?";
+		ArrayList<NtcDto> list = new ArrayList<NtcDto>();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startNum);
+			pstmt.setInt(2, endNum);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				NtcDto bean = new NtcDto();
+				bean.setNno(rs.getInt("nno")); 
+				bean.setNtitle(rs.getString("ntitle"));
+				bean.setNtype(rs.getString("ntype"));
+				bean.setNdate(rs.getDate("ndate"));
+				list.add(bean);				
+			}			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(conn!=null)conn.close();
+				if(stmt!=null)stmt.close();
+				if(rs!=null)rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
+	public ArrayList<NtcDto> selectAll() throws SQLException{	// Î™®Îëê Ï∂úÎ†•
 		ArrayList<NtcDto> list=new ArrayList<NtcDto>();
 		String sql="select * from ntc ORDER BY nno DESC";
 		try{
@@ -58,7 +119,7 @@ public class NtcDao {
 		return list;
 	}
 		
-	public NtcDto selectOne(int nno) throws SQLException{	// ªÛºº √‚∑¬
+	public NtcDto selectOne(int nno) throws SQLException{	// ÏÉÅÏÑ∏ Ï∂úÎ†•
 		String sql="select * from Ntc where nno=?";
 		NtcDto bean=new NtcDto();
 		PreparedStatement pstmt=null;
@@ -84,7 +145,7 @@ public class NtcDao {
 	}
 	
 
-	public int insertOne(String ntitle, String ntype, String nbody, Date ndate, Date ndateby, String nurl) throws SQLException{							// ¿‘∑¬
+	public int insertOne(String ntitle, String ntype, String nbody, Date ndate, Date ndateby, String nurl) throws SQLException{							// ÏûÖÎ†•
 		String sql="insert into ntc values (ntc_seq.nextval, ?, ?, ?, ?, ?, ?)";
 		try{
 			pstmt=conn.prepareStatement(sql);
@@ -124,14 +185,14 @@ public class NtcDao {
 		}
 	}
 	
-	public int updateOne(int nno, String ntitle, String nurl, String nbody) throws SQLException{		// ºˆ¡§
-		String sql="update ntc set ntitle=?, nurl=? nbody=? where nno=?";
+	public int updateOne(int nno, String ntitle, String nurl, String nbody) throws SQLException{		// ÏàòÏ†ï
+		String sql="update ntc set ntitle=?, nbody=?, nurl=? where nno=?";
 		try{
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, ntitle);
-			pstmt.setString(2, nurl);
-			pstmt.setInt(3, nno);
-			pstmt.setString(4, nbody);
+			pstmt.setString(2, nbody);
+			pstmt.setString(3, nurl);
+			pstmt.setInt(4, nno);
 			return pstmt.executeUpdate();
 		}finally{
 			if(pstmt!=null)pstmt.close();
@@ -139,7 +200,7 @@ public class NtcDao {
 		}
 	}
 	
-	public int deleteOne(int nno) throws SQLException{						// ªË¡¶
+	public int deleteOne(int nno) throws SQLException{						// ÏÇ≠Ï†ú
 //		String sql="update ntc set ntcAvailable=0 where nno=?";
 		String sql="delete from ntc where nno=?";
 		try{

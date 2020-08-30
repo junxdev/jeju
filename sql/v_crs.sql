@@ -9,4 +9,11 @@ round(avg(gr2)) as avg_gr2, round(avg(gr3)) as avg_gr3, round(avg(att_rate)) as 
 on crs.cno=stdcnt.cno
 order by cno;
 
+select * from v_crs;
+
+insert into crs values (crs_seq.nextval,'디지털컨버전스 기반 자바(JAVA)응용SW개발자 양성과정 D','2020-10-1','2020-12-31','55','30','403','1010','1002');
+insert into crs values (crs_seq.nextval,'디지털컨버전스 기반 자바(JAVA)응용SW개발자 양성과정 F','2020-10-1','2020-12-31','55','30','403','1010','1002');
 commit;
+select * from crs;
+
+select count(*) from std where gr1>0;

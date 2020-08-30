@@ -46,7 +46,13 @@
 			
 </table>
 
-<%-- 페이지 추가 --%>
+	<jsp:include page = "/paging.jsp">
+		<jsp:param value = "${paging.page}" name = "page"/>		
+		<jsp:param value = "${paging.beginPage}" name = "beginPage"/>
+		<jsp:param value = "${paging.endPage}" name = "endPage"/>
+		<jsp:param value = "${paging.prev}" name = "prev"/>	
+		<jsp:param value = "${paging.next}" name = "next"/>	
+	</jsp:include>
 
 <%@ include file="template/footer.jspf" %>
 </body>
