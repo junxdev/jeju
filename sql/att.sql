@@ -11,7 +11,27 @@ create sequence att_seq;
 
 select att.*,v_std.name from att,v_std where v_std.sno=att.sno and att.sno=1;
 
+select a.sno,a.name
+from
+(select v_std.sno, v_std.name from v_std where lvl='L03' and cno=?) a
+left outer join
+(select sno from att where to_char(adate,'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd')) b
+on a.sno=b.sno
+where b.sno is null;
+
+select v_std.sno, v_std.name from v_std where lvl='L03' and cno=2;
+select max(v_std.sno) sno, max(v_std.name), max(adate) from v_std,att where lvl='L03' and cno=2 and to_char(adate,'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd') group by v_std.sno;
+
+select v_std.sno, v_std.name, adate from v_std,att where lvl='L03' and cno=3 and to_char(adate,'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd');
+
+
+select sno, name from (select v_std.sno, v_std.name, adate from v_std,att where lvl='L03' and cno=2) where adate=sysdate;
+
+select sno from att where to_char(adate,'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd');
+
 insert into att values (att_seq.nextval,?,sysdate,?,?);
+
+select * from 
 
 --input data
 insert into att values (att_seq.nextval,'1','2020-07-01','1','1');

@@ -24,12 +24,12 @@ public class ReglistController extends HttpServlet {
 //		req.setAttribute("salesno", 1001);
 		EmpDto dto = (EmpDto) req.getSession().getAttribute("elogin");
 		try {
-			if(!"ì˜ì—…".equals(dto.getDname())) { // ì˜ì—…ì´ ì•„ë‹Œ ê²½ìš°
+			if(!"¿µ¾÷".equals(dto.getDname())) { // ¿µ¾÷ÀÌ ¾Æ´Ñ °æ¿ì
 				resp.sendRedirect("/jeju/lms/courses.bit");
 				return;
 			}
-		} catch (NullPointerException e) { // salesno ì˜¤ë¥˜
-			System.out.println("Reglist ë¹„ë¡œê·¸ì¸ ì ‘ê·¼");
+		} catch (NullPointerException e) { // salesno ¿À·ù
+			System.out.println("Reglist ºñ·Î±×ÀÎ Á¢±Ù");
 			resp.sendRedirect("/jeju/login/elogin.bit");
 			return;
 		}

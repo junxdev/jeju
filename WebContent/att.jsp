@@ -18,6 +18,10 @@
 		font-size: 2em;
 		color: red;
 	}
+	.alarm2{
+		font-size: 2em;
+		color: gray;
+	}
 </style>
 <script>
 </script>
@@ -27,7 +31,12 @@
 <%@ include file="template/menu.jspf" %>
 <h2>출결입력</h2>
 
-<div class="alarm">주의: 출석입력은 당일만 가능합니다. 반드시 당일 입력 완료해 주시기바랍니다.</div>
+<c:if test="${att.key ne null}">
+	<div class="alarm">주의: 출석입력은 당일만 가능합니다. 반드시 당일 입력 완료해 주시기바랍니다.</div>
+</c:if>
+<c:if test="${att.key eq null}">
+	<div class="alarm2">오늘의 출석입력을 모두 완료하였습니다.</div>
+</c:if>
 
 <table>
 	<tr>
@@ -85,8 +94,9 @@
 	<button type="submit">출결입력완료</button>
 </form>
 
-<div class="alarm">주의: 출석입력은 저장 후 수정이 불가능합니다.</div>
-
+<c:if test="${att.key ne null}">
+	<div class="alarm">주의: 출석입력은 저장 후 수정이 불가능합니다.</div>
+</c:if>
 <a href="<%=root %>/lms/mytask/mycourses.bit?eno=${elogin.eno}">내강의목록으로 돌아가기</a>
 
 <%@ include file="template/footer.jspf" %>

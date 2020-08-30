@@ -22,6 +22,10 @@
 	padding: 0 30px;
 	text-align: left;
 }
+#content #ntype{
+ 	height: 16px; 
+ 	width: 16px; 
+}
 </style>
 </head>
 <body>	

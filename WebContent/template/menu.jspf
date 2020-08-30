@@ -25,7 +25,9 @@
 <%-- 						<li><a href="<%=root %>/mypage/info.bit">회원정보</a></li> --%>
 					<li><a href="<%=root %>/lms/mytask.bit">내업무</a></li>
 					<li><a href="<%=root %>/lms/courses.bit">전체과정</a></li>
-					<li><a href="<%=root %>/lms/students.bit">전체학생</a></li>
+					<c:if test="${elogin.dname eq '행정'}">
+						<li><a href="<%=root %>/lms/students.bit">전체학생</a></li>
+					</c:if>
 					<li><a href="<%=root %>/lms/emp.bit">직원정보</a></li>
 					<li><a href="<%=root %>/lms/ntc.bit">공지사항관리</a></li>
 				</ul>

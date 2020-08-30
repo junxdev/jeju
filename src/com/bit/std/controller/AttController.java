@@ -32,6 +32,7 @@ public class AttController extends HttpServlet {
 			AttDao dao2 = new AttDao();
 			TreeMap<Integer, String> att=dao2.attByCno(Integer.parseInt(request.getParameter("cno")));
 			request.setAttribute("att", att);
+			System.out.print(att.toString());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

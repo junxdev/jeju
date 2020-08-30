@@ -55,7 +55,10 @@ public class AttDao {
 	
 	public TreeMap<Integer, String> attByCno(int cno) throws SQLException{
 		TreeMap<Integer,String> attlist=new TreeMap<Integer,String>();
-		String sql="select v_std.sno, v_std.name from v_std where lvl='L03' and cno=?";
+		String sql="select a.sno,a.name "
+				+ "from (select v_std.sno, v_std.name from v_std where lvl='L03' and cno=?) a left outer join "
+				+ "(select sno from att where to_char(adate,'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd')) b "
+				+ "on a.sno=b.sno where b.sno is null";
 		try{
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, cno);
