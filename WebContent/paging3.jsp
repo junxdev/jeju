@@ -15,9 +15,10 @@
 </style>
 </head>
 <body>
-<div id="paging">
+<div id="pageing">
 <!-- 1~10까지 있는 페이지의 페이징 -->
-<c:url var="action" value="courses.bit"/>
+
+<c:url var="action" value="notice.bit"/>
 
 <c:if test="${param.prev}">
     <a href="${action}?page=${param.beginPage-1}">prev</a>
