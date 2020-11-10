@@ -10,8 +10,8 @@ public class CaddDao {
 	Connection conn;
 	
 	public CaddDao() throws SQLException {
-		String driver = "oracle.jdbc.OracleDriver";
-		String url = "jdbc:oracle:thin:@localhost:1521:xe";
+		String driver = "com.mysql.cj.jdbc.Driver";
+		String url = "jdbc:mysql://@127.0.0.1:3306/lms?serverTimezone=UTC";
 		String user = "scott";
 		String password = "tiger";
 		try {
@@ -22,7 +22,7 @@ public class CaddDao {
 		}
 	}
 	public void insertOne(String ctitle, String cbegin, String cend, int croom, int profno, int salesno) throws SQLException {
-		String sql = "insert into crs values(crs_seq.nextval,?,?,?,55,30,?,?,?)";
+		String sql = "insert into crs values(?,?,?,55,30,?,?,?)";
 		PreparedStatement pstmt = null;
 		try{
 			pstmt = conn.prepareStatement(sql);

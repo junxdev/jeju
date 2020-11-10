@@ -1,6 +1,6 @@
 create or replace view v_crs as
 select 
-crs.cno,ctitle,cbegin,cend,cdays,dcnt, climit,croom,profno,empl.name as prof,salesno,
+crs.cno,ctitle,cbegin,cend,cdays,dcnt, climit,croom,profno,empl.ename as prof,salesno,
 stdcnt,avg_gr1,avg_gr2,avg_gr3,avg_att
 from crs
 left join empl on crs.profno=empl.eno
@@ -11,8 +11,8 @@ order by cno;
 
 select * from v_crs;
 
-insert into crs values (crs_seq.nextval,'µğÁöÅĞÄÁ¹öÀü½º ±â¹İ ÀÚ¹Ù(JAVA)ÀÀ¿ëSW°³¹ßÀÚ ¾ç¼º°úÁ¤ D','2020-10-1','2020-12-31','55','30','403','1010','1002');
-insert into crs values (crs_seq.nextval,'µğÁöÅĞÄÁ¹öÀü½º ±â¹İ ÀÚ¹Ù(JAVA)ÀÀ¿ëSW°³¹ßÀÚ ¾ç¼º°úÁ¤ F','2020-10-1','2020-12-31','55','30','403','1010','1002');
+insert into crs values (crs_seq.nextval,'ë””ì§€í„¸ì»¨ë²„ì „ìŠ¤ ê¸°ë°˜ ìë°”(JAVA)ì‘ìš©SWê°œë°œì ì–‘ì„±ê³¼ì • D','2020-10-1','2020-12-31','55','30','403','1010','1002');
+insert into crs values (crs_seq.nextval,'ë””ì§€í„¸ì»¨ë²„ì „ìŠ¤ ê¸°ë°˜ ìë°”(JAVA)ì‘ìš©SWê°œë°œì ì–‘ì„±ê³¼ì • F','2020-10-1','2020-12-31','55','30','403','1010','1002');
 commit;
 select * from crs;
 

@@ -18,8 +18,8 @@ public class CourseDao {
 	ResultSet rs = null;
 	
 	public CourseDao() throws SQLException {
-		String driver = "oracle.jdbc.OracleDriver";
-		String url = "jdbc:oracle:thin:@localhost:1521:xe";
+		String driver = "com.mysql.cj.jdbc.Driver";
+		String url = "jdbc:mysql://@127.0.0.1:3306/lms?serverTimezone=UTC";
 		String user = "scott";
 		String password = "tiger";
 		try {
@@ -97,7 +97,7 @@ public class CourseDao {
 
 	public ArrayList<CourseDto> selectAll() throws SQLException {
 		ArrayList<CourseDto> list=new ArrayList<CourseDto>();
-		String sql="select * from crs where cbegin > sysdate ORDER BY cno DESC";
+		String sql="select * from crs where cbegin > '2020-09-01' ORDER BY cno DESC";
 		System.out.println("selectAll()1");
 		try{
 			pstmt=conn.prepareStatement(sql);
@@ -120,7 +120,7 @@ public class CourseDao {
 	}
 
 	public int registerOne (String id, int cno) throws SQLException {
-		String sql = "insert into std values (std_seq.nextval, ?, ?, null, null, null, null, null, null)";
+		String sql = "insert into student values (?, ?, null, null, null, null, null, null)";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
@@ -189,9 +189,9 @@ public class CourseDao {
 	}
 	
 	public ArrayList<Object> getAssignList(int cno, int salesno) {
-		String sql = "select std.sno, mbr.id as id, mbr.name as mname, mbr.tel, mbr.lvl, crs.cno, crs.ctitle, crs.cbegin, empl.name as ename from std "
-				+ "left join mbr on std.id = mbr.id "
-				+ "left join crs on std.cno = crs.cno "
+		String sql = "select student.sno, mbr.id as id, mbr.mname as mname, mbr.tel, mbr.lvl, crs.cno, crs.ctitle, crs.cbegin, empl.ename as ename from student "
+				+ "left join mbr on student.id = mbr.id "
+				+ "left join crs on student.cno = crs.cno "
 				+ "left join empl on crs.profno = empl.eno "
 				+ "where crs.cno = ? and crs.salesno = ?";
 		StdDto std = null;

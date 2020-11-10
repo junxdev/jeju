@@ -1,81 +1,90 @@
+drop table IF EXISTS att;
+drop table IF EXISTS student;
+drop table IF EXISTS mbr;
+drop table IF EXISTS lvl;
+drop table IF EXISTS ntc;
+drop table IF EXISTS crs;
+drop table IF EXISTS empl;
+drop table IF EXISTS dpt;
+
 create table dpt(
-	dno char(3) constraint dpt_dno_pk primary key,
-	dname varchar2(20) constraint dpt_dname_nn not null,
-	daccess varchar2(300)
+	dno char(3) primary key,
+	dname varchar(20) not null,
+	daccess varchar(300)
 );
 
 create table empl(
-	eno number(4) constraint empl_eno_pk primary key,
-	name varchar2(20) constraint empl_name_nn not null,
-	pw varchar2(20) constraint empl_pw_nn not null,
-	tel char(11) constraint empl_tel_uk unique,
-	email varchar2(30) constraint empl_email_uk unique,
-	answer varchar2(50),
-	hdate date default sysdate,
-	dno char(3) constraint empl_dno_fk references dpt(dno)
-);
+	eno int(4) primary key,
+	ename varchar(20) not null,
+	pw varchar(20) not null,
+	tel char(11),
+	email varchar(30),
+	answer varchar(50),
+	hdate datetime default current_timestamp,
+	dno char(3),
+	constraint empl_dno_fk foreign key (dno) references dpt(dno) on update cascade);
 
 create table crs(
-	cno number constraint crs_cno_pk primary key,
-	ctitle varchar2(300),	
-	cbegin date,
-	cend date,
-	cdays number(3),
-	climit number(3),
-	croom varchar2(10) check (croom in ('401','402','403')),
-	profno number constraint crs_profno_fk references empl(eno),
-	salesno number constraint crs_salesno_fk references empl(eno)
+	cno int auto_increment primary key,
+	ctitle varchar(300),	
+	cbegin datetime,
+	cend datetime,
+	cdays int(3),
+	climit int(3),
+	croom varchar(10) check (croom in ('401','402','403')),
+	profno int,
+	salesno int,
+	constraint crs_profno_fk foreign key (profno) references empl(eno),
+	constraint crs_salesno_fk foreign key (salesno) references empl(eno)
 );
-create sequence crs_seq;
-drop table ntc;
+
 create table ntc(
-	nno number constraint ntc_nno_pk primary key,
-	ntitle varchar2(300),
-	ntype varchar2(30) check (ntype in ('¼¾ÅÍ°øÁö','°úÁ¤°øÁö','±âÅ¸°øÁö')),
-	nbody varchar2(2000),
-	ndate date default sysdate,
-	ndateby date default sysdate+365,
-	cno number constraint ntc_cno_fk references crs(cno),
-	eno number constraint ntc_eno_fk references empl(eno),
-	nurl varchar2(300)
-);
-create sequence ntc_seq;
+	nno int auto_increment primary key,
+	ntitle varchar(300),
+	ntype varchar(30) check (ntype in ('ì„¼í„°ê³µì§€','ê³¼ì •ê³µì§€','ê¸°íƒ€ê³µì§€')),
+	nbody varchar(2000),
+	ndate datetime default current_timestamp,
+	ndateby datetime default (current_timestamp+365),
+	cno int,
+	eno int,
+	nurl varchar(300),
+	constraint ntc_cno_fk foreign key (cno) references crs(cno),
+    constraint ntc_eno_fk foreign key (eno) references empl(eno));
 
 create table lvl(
-	lvl char(3) constraint lvl_lvl_pk primary key,
-	lname varchar2(20) constraint lvl_lname_nn not null constraint lvl_lname_uk unique,
-	ldesc varchar2(50) 
+	lvl char(3) primary key,
+	lname varchar(20) not null unique,
+	ldesc varchar(50) 
 );
 
 create table mbr(
-	id varchar2(20) constraint mbr_id_pk primary key,
-	pw varchar2(20) constraint mbr_pw_nn not null,
-	name varchar2(20) constraint mbr_name_nn not null,
-	tel char(11) constraint mbr_tel_uk unique,
-	email varchar2(30) constraint mbr_email_uk unique,
-	answer varchar2(50),
-	lvl char(3) default 'L01' constraint mbr_lvl_fk references lvl(lvl)
+	id varchar(20) primary key,
+	pw varchar(20) not null,
+	mname varchar(20) not null,
+	tel char(11) unique,
+	email varchar(30) unique,
+	answer varchar(50),
+	lvl char(3) default 'L01', 
+    constraint mbr_lvl_fk foreign key (lvl) references lvl(lvl)
 );
-create sequence mbr_seq;
 
-create table std(
-	sno number constraint std_sno_pk primary key,
-	id varchar2(20) constraint std_id_fk references mbr(id),
-	cno number constraint std_cno_fk references crs(cno),
-	date1 date,
-	gr1 number(3),
-	date2 date,
-	gr2 number(3),
-	date3 date,
-	gr3 number(3)
-);
-create sequence std_seq;
+create table student(
+	sno int primary key auto_increment,
+	id varchar(20),
+	cno int,
+	date1 datetime,
+	gr1 int(3),
+	date2 datetime,
+	gr2 int(3),
+	date3 datetime,
+	gr3 int(3),
+	constraint std_id_fk foreign key(id) references mbr(id),
+    constraint std_cno_fk foreign key(cno) references crs(cno));
 
 create table att(
-	ano number constraint att_ano_pk primary key,
-	sno number constraint att_sno_fk references std(sno),
-	adate date default sysdate,
-	ckin number(1) default 0 check (ckin in (0,1,2)),
-	ckout number(1) default 0 check (ckout in(0,1,3))
-);
-create sequence att_seq;
+	ano int primary key auto_increment,
+	sno int,
+	adate datetime default current_timestamp,
+	ckin int(1) default 0 check (ckin in (0,1,2)),
+	ckout int(1) default 0 check (ckout in(0,1,3)),
+	constraint att_sno_fk foreign key(sno) references student(sno));

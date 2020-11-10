@@ -17,8 +17,8 @@ public class EmpDao {
 	ResultSet rs;
 	
 	public EmpDao() throws SQLException{
-		String driver="oracle.jdbc.OracleDriver";
-		String url="jdbc:oracle:thin:@localhost:1521:xe";
+		String driver = "com.mysql.cj.jdbc.Driver";
+		String url = "jdbc:mysql://@127.0.0.1:3306/lms?serverTimezone=UTC";
 		String user="scott";
 		String password="tiger";
 		try {
@@ -39,7 +39,7 @@ public class EmpDao {
 			while(rs.next()){
 				bean.add(new EmpDto(
 						rs.getInt("eno"),
-						rs.getString("name"),
+						rs.getString("ename"),
 						rs.getString("pw"),
 						rs.getString("tel"),
 						rs.getString("email"),
@@ -64,7 +64,7 @@ public class EmpDao {
 			rs=pstmt.executeQuery();
 			if(rs.next()){return new EmpDto(
 						rs.getInt("eno"),
-						rs.getString("name"),
+						rs.getString("ename"),
 						rs.getString("pw"),
 						rs.getString("tel"),
 						rs.getString("email"),
@@ -93,7 +93,7 @@ public class EmpDao {
 				bean.setEno(rs.getInt("eno"));
 				bean.setPw(rs.getString("pw"));
 				bean.setDname(rs.getString("dname"));
-				bean.setName(rs.getString("name"));
+				bean.setName(rs.getString("ename"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

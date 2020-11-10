@@ -9,8 +9,9 @@ public class OracleJeju {
 
 	private String user = "scott";
 	private String password = "tiger";
-	private String driver = "oracle.jdbc.driver.OracleDriver";
-	private String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
+//	private String driver = "oracle.jdbc.driver.OracleDriver";
+	private String driver = "com.mysql.cj.jdbc.Driver";
+	private String url = "jdbc:mysql://@127.0.0.1:3306/lms?serverTimezone=UTC";
 	private Connection conn = null;
 	
 	public Connection getConnection() {

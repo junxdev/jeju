@@ -7,6 +7,10 @@
 <title>비트캠프 제주지점 : 회원가입</title>
 <%@ include file="template/head.jspf" %>
 <style type="text/css">
+	* {
+		word-break: keep-all;
+	}
+
 	.default_input {
 	}
 	
@@ -57,6 +61,50 @@
 	}
 	.hidden {
 		display: none;
+	}
+	
+	h2 {
+	    text-align: left;
+	    width: 40%;
+	    margin: auto;
+	    margin-top: 1em;
+	}
+	
+	.input-form {
+	    text-align: left;
+	    width: 40%;
+	    margin: auto;
+	}
+	
+	.input-box {
+		margin-top: 1em;
+	}
+	
+	.input-box label {
+		font-size: 0.7em;
+		left: 10px;
+	}
+	
+	.input-box p {
+		font-size: 0.7em;
+		left: 10px;
+		margin-bottom: 0;
+	}
+	
+	.input-box span {
+		font-size: 0.7em;
+		color: red;
+	}
+	
+	.input-box input {
+		width: 50%;
+	}
+	
+	#legal {
+		width: inherit;
+	}
+	.input-form button {
+		width: 100%;
 	}
 </style>
 <script type="text/javascript">
@@ -134,7 +182,7 @@
 			}
 			
 			if(pwcheck == '' || pw != pwcheck) {	
-				err_message('pwcheck', '입력한 비밀번호와 동일한 비밀번호를 입력하세요');	
+				err_message('pwcheck', '동일한 비밀번호를 입력하세요');	
 			}
 			
 			if(answer == '') {	
@@ -212,50 +260,82 @@
 		<div>
 			<h2>회원가입</h2>
 		</div>
-		<div>
-			<div>
-				<label for="id">아이디 (영문, 숫자 조합 5자 이상)</label>
-				<input type="text" id="id" class="default_input" name="id"/>
-				<span id="errid"></span>
+		<div class="input-form">
+			<div class="input-box">
+				<div>
+					<label for="id">아이디 (영문, 숫자 조합 5자 이상)</label>
+				</div>
+				<div>
+					<input type="text" id="id" class="default_input" name="id"/>
+					<span id="errid"></span>
+				</div>
 			</div>
-			<div>
-				<label for="pw">비밀번호 (영문, 숫자, 특수문자 포함 8자 이상)</label>
-				<input type="password" id="pw" class="default_input" name="pw"/>
-				<span id="errpw"></span>
+			<div class="input-box">
+				<div>
+					<label for="pw">비밀번호 (영문, 숫자, 특수문자 포함 8자 이상)</label>
+				</div>
+				<div>
+					<input type="password" id="pw" class="default_input" name="pw"/>
+					<span id="errpw"></span>
+				</div>
 			</div>
-			<div>
-				<label for="pwcheck">비밀번호 확인</label>
-				<input type="password" id="pwcheck" class="default_input" name="pwcheck"/>
-				<span id="errpwcheck"></span>
+			<div class="input-box">
+				<div>
+					<label for="pwcheck">비밀번호 확인</label>
+				</div>
+				<div>
+					<input type="password" id="pwcheck" class="default_input" name="pwcheck"/>
+					<span id="errpwcheck"></span>
+				</div>
 			</div>
-			<div>
-				<div>비밀번호 찾기 질문: 가장 좋아하는 동물은?</div>
-				<label for="answer">비밀번호 찾기 답 (10자 이하)</label>
-				<input type="text" id="answer" class="default_input" name="answer"/>
-				<span id="erranswer"></span>
+			<div class="input-box">
+				<div>
+					<p>다음 비밀번호 찾기 질문에 답해주세요: 가장 좋아하는 동물은?</p>
+					<label for="answer">비밀번호 찾기 답 (10자 이하)</label>
+				</div>
+				<div>
+					<input type="text" id="answer" class="default_input" name="answer"/>
+					<span id="erranswer"></span>
+				</div>
 			</div>
-			<div>
-				<label for="name">이름</label>
-				<input type="text" id="name" class="default_input" name="name"/>
-				<span id="errname"></span>
+			<div class="input-box">
+				<div>
+					<label for="name">이름</label>
+				</div>
+				<div>
+					<input type="text" id="name" class="default_input" name="name"/>
+					<span id="errname"></span>
+				</div>
 			</div>
-			<div>
-				<label for="tel">전화번호</label>
-				<input type="text" id="tel" class="default_input" name="tel"/>
-				<span id="errtel"></span>
+			<div class="input-box">
+				<div>
+					<label for="tel">전화번호</label>
+				</div>
+				<div>
+					<input type="text" id="tel" class="default_input" name="tel"/>
+					<span id="errtel"></span>
+				</div>
 			</div>
-			<div>
-				<label for="email">이메일</label>
-				<input type="text" id="email" class="default_input" name="email"/>
-				<span id="erremail"></span>
+			<div class="input-box">
+				<div>
+					<label for="email">이메일</label>
+				</div>
+				<div>
+					<input type="text" id="email" class="default_input" name="email"/>
+					<span id="erremail"></span>
+				</div>
 			</div>
-			<div>
-				<input type="checkbox" id="legal" class="default_input" name="legal">
-				<label for="legal"> 이용약관 및 개인정보 처리방침에 동의합니다</label>
-				<span id="errlegal"></span>
+			<div class="input-box">
+				<div>
+					<input type="checkbox" id="legal" class="default_input" name="legal">
+					<label for="legal"> 이용약관 및 개인정보 처리방침에 동의합니다</label>
+				</div>
+				<div>
+					<span id="errlegal"></span>
+				</div>
 			</div>
-			<div>
-				<button type="button" id="btnjoin">가입</button>
+			<div class="input-box">
+				<button type="button" id="btnjoin">가입하기</button>
 			</div>
 		</div>
 		<div class="modal hidden">

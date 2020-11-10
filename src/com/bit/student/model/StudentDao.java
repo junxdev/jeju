@@ -24,7 +24,7 @@ public class StudentDao {
 	}
 	
 	public StudentDto selectStudent(String id) {
-		String sql = "SELECT * FROM std WHERE id = ?";
+		String sql = "SELECT * FROM student WHERE id = ?";
 		System.out.println("selectStudent() : " + id);
 		try {
 			ps = conn.prepareStatement(sql);

@@ -25,12 +25,12 @@ public class AssignController extends HttpServlet {
 //		req.setAttribute("salesno", 1001);
 		EmpDto dto = (EmpDto) req.getSession().getAttribute("elogin");
 		try {
-			if(!"¿µ¾÷".equals(dto.getDname())) { // ¿µ¾÷ÀÌ ¾Æ´Ñ °æ¿ì
+			if(!"ì˜ì—…".equals(dto.getDname())) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½
 				resp.sendRedirect("/jeju/lms/courses.bit");
 				return;
 			}
-		} catch (NullPointerException e) { // salesno ¿À·ù
-			System.out.println("Assign ºñ·Î±×ÀÎ Á¢±Ù");
+		} catch (NullPointerException e) { // salesno ï¿½ï¿½ï¿½ï¿½
+			System.out.println("Assign ï¿½ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 			resp.sendRedirect("/jeju/login/elogin.bit");
 			return;
 		}
@@ -40,7 +40,7 @@ public class AssignController extends HttpServlet {
 		ArrayList<Object> list = null ;
 		try {
 			list = new CourseDao().getAssignList(cno, salesno);
-		} catch (SQLException e) { // list ¿À·ù
+		} catch (SQLException e) { // list ï¿½ï¿½ï¿½ï¿½
 			e.printStackTrace();
 		}
 		req.setAttribute("list", list);

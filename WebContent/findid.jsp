@@ -22,6 +22,7 @@
 	}
 </style>
 <script type="text/javascript">
+	var checkFindId;
 	$(document).ready(function() {
 		// * * * * * 블록 변수 * * * * *
 		var tryfindid = false;
@@ -35,7 +36,7 @@
 		}
 		// * * * * * * * * * * * * * * * * * * * * * * * * *
 		
-		function checkFindId() {
+		checkFindId = function() {
 			// * * * * * 에러 메시지 및 값 초기화 * * * * *
 			$('span').text('');
 			$('input').removeClass('change_input').removeClass('change_check');
@@ -50,7 +51,7 @@
 			if(name == '') {	
 				err_message('name', '이름을 입력하세요');	
 			} else if(name.length > 6) {
-				err_message('name', '6자 이하로 입력하세요');	
+				err_message('name', '6자 이하로 입력하세요');
 			}
 			
 			if(tel == '') {	
@@ -79,8 +80,12 @@
 			// * * * * * tryfindid이 true면 오류 필드 중 가장 위 필드를 포커스하고 중지 * * * * *
 			if(tryfindid) {
 				$('span').each(function(i, e) {
-                    if($(e).text()) {	$(e).prev('input').focus();	return false;		};
+                    if($(e).text()) {	
+                    	$(e).prev('input').focus();	
+                    	return false;
+                    };
                 });
+				return false;
 			}
 			// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 		};
@@ -95,7 +100,7 @@
 			<p>회원가입 시 입력했던 정보들을 입력하세요</p>
 		</div>
 		<div>
-			<form method="post" onsubmit="return checkFindId();">
+			<form method="post" onsubmit="return checkFindId()">
 				<div>
 					<label for="name">이름</label>
 					<input type="text" id="name" class="default_input" name="name"/>

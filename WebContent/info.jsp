@@ -21,6 +21,7 @@
 				/* console.log($(e).children().eq(1).text()); */
 				location.href = '/jeju/mypage/infoedit.bit?type=' + typelist[i];
 			});
+			$(e).css('cursor', 'pointer');
 		});
 	});
 </script>

@@ -16,8 +16,8 @@ public class AttDao {
 	ResultSet rs;
 	
 	public AttDao() throws SQLException{
-		String driver="oracle.jdbc.OracleDriver";
-		String url="jdbc:oracle:thin:@localhost:1521:xe";
+		String driver = "com.mysql.cj.jdbc.Driver";
+		String url = "jdbc:mysql://@127.0.0.1:3306/lms?serverTimezone=UTC";
 		String user="scott";
 		String password="tiger";
 		try {
@@ -78,7 +78,7 @@ public class AttDao {
 	
 	public void addAtt(int sno, int ckin, int ckout) throws SQLException{
 		try{
-				String sql="insert into att values (att_seq.nextval,?,sysdate,?,?)";
+				String sql="insert into att values (?,now(),?,?)";
 				pstmt=conn.prepareStatement(sql);
 				pstmt.setInt(1, sno);
 				pstmt.setInt(2, ckin);

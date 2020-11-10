@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CoursesDao {
-	String driver =	"oracle.jdbc.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	String driver = "com.mysql.cj.jdbc.Driver";
+	String url = "jdbc:mysql://@127.0.0.1:3306/lms?serverTimezone=UTC";
 	String user = "scott";
 	String password = "tiger";
 	Connection conn;
@@ -51,8 +51,8 @@ public class CoursesDao {
 		int endNum = page*10;
 		String sql = "select * from "
 				+ "( select * from "
-				+ "( select rownum as row_num, crs.* from crs order by cno desc) where row_num > = ?"
-				+ ")where row_num <= ?";
+				+ "( select rownum as row_num, crs.* from crs order by cno desc) a where row_num > = ?"
+				+ ") b where row_num <= ?";
 		List<CoursesDto> list = new ArrayList<CoursesDto>();
 		try {
 			Class.forName(driver);

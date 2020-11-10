@@ -47,7 +47,7 @@ public class MemberDao {
 	}
 	
 	public String lookupId(String name, String tel, String email) {
-		String sql = "SELECT * FROM mbr WHERE name = ? AND tel = ? AND email = ?";
+		String sql = "SELECT * FROM mbr WHERE mname = ? AND tel = ? AND email = ?";
 		System.out.println("lookupId() : " + name + ", " + tel + ", " + email);
 		try {
 			ps = conn.prepareStatement(sql);
@@ -119,7 +119,7 @@ public class MemberDao {
 				dto = new MemberDto();
 				dto.setId(rs.getString("id"));
 				dto.setAnswer(rs.getString("answer"));
-				dto.setName(rs.getString("name"));
+				dto.setName(rs.getString("mname"));
 				dto.setTel(rs.getString("tel"));
 				dto.setEmail(rs.getString("email"));
 				dto.setLvl(rs.getString("lvl"));
@@ -198,7 +198,7 @@ public class MemberDao {
 			if(rs.next()) {
 				dto = new MemberDto();
 				dto.setId(rs.getString("id"));
-				dto.setName(rs.getString("name"));
+				dto.setName(rs.getString("mname"));
 				dto.setLvl(rs.getString("lvl"));
 			}
 		} catch(SQLException e) {

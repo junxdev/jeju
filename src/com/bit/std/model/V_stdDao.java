@@ -15,8 +15,8 @@ public class V_stdDao {
 	ResultSet rs;
 	
 	public V_stdDao() throws SQLException{
-		String driver="oracle.jdbc.OracleDriver";
-		String url="jdbc:oracle:thin:@localhost:1521:xe";
+		String driver = "com.mysql.cj.jdbc.Driver";
+		String url = "jdbc:mysql://@127.0.0.1:3306/lms?serverTimezone=UTC";
 		String user="scott";
 		String password="tiger";
 		try {

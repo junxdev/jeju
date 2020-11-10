@@ -22,8 +22,8 @@ public class NtcDao {
 	ResultSet rs;
 	
 	public NtcDao() throws SQLException {
-		String driver="oracle.jdbc.OracleDriver";
-		String url="jdbc:oracle:thin:@localhost:1521:xe";
+		String driver = "com.mysql.cj.jdbc.Driver";
+		String url = "jdbc:mysql://@127.0.0.1:3306/lms?serverTimezone=UTC";
 		String user="scott";
 		String password="tiger";
 		try {
@@ -92,7 +92,7 @@ public class NtcDao {
 		return list;
 	}
 	
-	public ArrayList<NtcDto> selectAll() throws SQLException{	// 모두 출력
+	public ArrayList<NtcDto> selectAll() throws SQLException{	// ëª¨ë‘� ì¶œë ¥
 		ArrayList<NtcDto> list=new ArrayList<NtcDto>();
 		String sql="select * from ntc ORDER BY nno DESC";
 		try{
@@ -119,7 +119,7 @@ public class NtcDao {
 		return list;
 	}
 		
-	public NtcDto selectOne(int nno) throws SQLException{	// 상세 출력
+	public NtcDto selectOne(int nno) throws SQLException{	// ìƒ�ì„¸ ì¶œë ¥
 		String sql="select * from Ntc where nno=?";
 		NtcDto bean=new NtcDto();
 		PreparedStatement pstmt=null;
@@ -145,8 +145,8 @@ public class NtcDao {
 	}
 	
 
-	public int insertOne(String ntitle, String ntype, String nbody, Date ndate, Date ndateby, String nurl) throws SQLException{							// 입력
-		String sql="insert into ntc values (ntc_seq.nextval, ?, ?, ?, ?, ?, ?)";
+	public int insertOne(String ntitle, String ntype, String nbody, Date ndate, Date ndateby, String nurl) throws SQLException{							// ìž…ë ¥
+		String sql="insert into ntc values (?, ?, ?, ?, ?, ?)";
 		try{
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, ntitle);
@@ -163,7 +163,7 @@ public class NtcDao {
 	}
 	
 	public void insertOne(String ntitle, String nurl, String ntype, String nbody){
-		String sql="insert into ntc (nno, ntitle, nurl, ntype, nbody) values (ntc_seq.nextval,?, ?, ?,?)";
+		String sql="insert into ntc (ntitle, nurl, ntype, nbody) values (?, ?, ?,?)";
 		try{
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, ntitle);
@@ -185,7 +185,7 @@ public class NtcDao {
 		}
 	}
 	
-	public int updateOne(int nno, String ntitle, String nurl, String nbody) throws SQLException{		// 수정
+	public int updateOne(int nno, String ntitle, String nurl, String nbody) throws SQLException{		// ìˆ˜ì •
 		String sql="update ntc set ntitle=?, nbody=?, nurl=? where nno=?";
 		try{
 			pstmt=conn.prepareStatement(sql);
@@ -200,7 +200,7 @@ public class NtcDao {
 		}
 	}
 	
-	public int deleteOne(int nno) throws SQLException{						// 삭제
+	public int deleteOne(int nno) throws SQLException{						// ì‚­ì œ
 //		String sql="update ntc set ntcAvailable=0 where nno=?";
 		String sql="delete from ntc where nno=?";
 		try{
